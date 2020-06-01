@@ -59,17 +59,30 @@ class App extends React.Component {
 
   }
   completeItem(key){
-    const items = [...this.state.items];
-    const filteredItem = items.find(item => item.key==key);
-    const filteredItems = items.filter(item =>
-        item.key!== key);
-    console.log("filteredItem = " , filteredItem)
-    filteredItem.complete = true;
+    //var items = [...this.state.items];
+    var items = []
+    var object = {}
+    console.log("items.length = " , this.state.items.length)
+    // const filteredItem = items.find(item => item.key==key);
+    // const filteredItems = items.filter(item =>
+    //     item.key!== key);
+    // console.log("filteredItem = " , filteredItem)
+
+   for (let i = 0 ; i < this.state.items.length ; i++){
+      if(this.state.items[i].key == key){
+        object = this.state.items[i]
+        object.complete = true
+      }
+      else{
+        items.push(this.state.items[i])
+      }
+   }
+   items.push(object)
+    // filteredItem.complete = true;
    
     this.setState({
       items:[
-        ...filteredItems,
-        filteredItem
+        ...items,
       ],
       ...this.state.currentItem,
       
