@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function ListItems(props){
     const items = props.items;
+    // items.sort((x, y) => (x === y) ? x : 0 ? 1 : -1);
+
+    // console.log("items =" , items.sort((x, y) => (x === y) ? x : 0 ? -1 : 1))
     const listItems = items.map(item =>
     {
         return <div className={item.complete ? 'completedList list' : 'list'} key={item.key}>

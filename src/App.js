@@ -15,7 +15,8 @@ class App extends React.Component {
       items:[],
       currentItem:{
         text:'',
-        key:''
+        key:'',
+        complete: true
       }
     }
     this.addItem = this.addItem.bind(this);
@@ -28,11 +29,9 @@ class App extends React.Component {
   addItem(e){
     e.preventDefault();
     const newItem = this.state.currentItem;
-    console.log("newItem = " , newItem);
     if(newItem.text !==""){
       const items = [newItem,...this.state.items];
-      console.log("items = " , items);
-
+      
     this.setState({
       items: items,
       currentItem:{
@@ -60,19 +59,35 @@ class App extends React.Component {
 
   }
   completeItem(key){
-    const filteredItems= this.state.items.filter(item =>
-      item.key!==key);
-      const filteredItems1= this.state.items.filter(item =>
-        item.key==key);
+    const items = [...this.state.items];
+    const filteredItem = items.find(item => item.key==key);
+    const filteredItems = items.filter(item =>
+        item.key!== key);
+    console.log("filteredItem = " , filteredItem)
+    filteredItem.complete = true;
+   
+    this.setState({
+      items:[
+        ...filteredItems,
+        filteredItem
+      ],
+      ...this.state.currentItem,
+      
+    })
+    
+    // const filteredItems= this.state.items.filter(item =>
+    //   item.key!==key);
+    //   const filteredItems1= this.state.items.filter(item =>
+    //     item.key==key);
 
-        console.log("filteredItems = " , filteredItems)
-        console.log("filteredItems1 = " , filteredItems1[0])
-        filteredItems1[0].complete = true
-        filteredItems.push(filteredItems1[0])
-        console.log("After filteredItems = " , filteredItems)
-        this.setState({
-          items: filteredItems
-        })
+    //     console.log("filteredItems = " , filteredItems)
+    //     console.log("filteredItems1 = " , filteredItems1[0])
+    //     filteredItems1[0].complete = true
+    //     filteredItems.push(filteredItems1[0])
+    //     console.log("After filteredItems = " , filteredItems)
+    //     this.setState({
+    //       items: filteredItems
+    //     })
   }
   setUpdate(text,key){
     console.log("items:"+this.state.items);
